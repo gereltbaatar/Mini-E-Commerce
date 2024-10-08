@@ -11,7 +11,24 @@ module.exports = {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      fontFamily: {
+        roboto: ["Roboto", "sans-serif"],
+      },
+      colors: {
+        primary: "#131424",
+        blue: "#081424",
+        blue1: "#092344",
+        richBlack: "#020D19",
+        secondary: "#393A47",
+        accent: "#F13024",
+        green: "#43b282",
+        greent: "#328561",
+        blurGreen: "#43b2821a",
+      },
     },
   },
-  plugins: [],
+  plugins: [require("daisyui")],
+  daisyui: {
+    darkTheme: "light", // name of one of the included themes for dark mode
+  },
 };
