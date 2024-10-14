@@ -2,7 +2,7 @@ import { Header, MainZone, Footer } from "../parts";
 
 const HomePage = () => {
   return (
-    <main className="">
+    <main className="h-screen flex flex-col justify-between">
       <Header />
       <MainZone />
       <Footer />

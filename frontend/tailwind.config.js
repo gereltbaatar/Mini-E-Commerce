@@ -24,6 +24,7 @@ module.exports = {
         green: "#43b282",
         greent: "#328561",
         blurGreen: "#43b2821a",
+        textColor: "#7d7f83",
       },
     },
   },

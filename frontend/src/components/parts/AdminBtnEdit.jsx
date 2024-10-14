@@ -1,9 +1,7 @@
-"use client";
+import { EditIcon } from "../svg";
 
-import { AddIcon } from "../svg";
-
-export const AddProductBtn = ({
-  handleOnSubmit,
+export const AdminBtnEdit = ({
+  handleOnSubmitEdit,
   nameN,
   nameIntrodure,
   namePrice,
@@ -12,21 +10,21 @@ export const AddProductBtn = ({
   return (
     <div className="">
       <button
-        className="btn bg-blue1 text-white hover:bg-green"
-        onClick={() => document.getElementById("my_modal_3").showModal()}
+        className="px-3 py-1 rounded bg-blue1 text-white hover:bg-green duration-300 hover:scale-[1.05]"
+        onClick={() => document.getElementById("my_modal_1").showModal()}
       >
-        <AddIcon />
+        <EditIcon />
       </button>
-      <dialog id="my_modal_3" className="modal">
+      <dialog id="my_modal_1" className="modal">
         <div className="modal-box">
           <div className="flex flex-col gap-5">
             <div className="flex items-center justify-between">
-              <h3 className="font-bold text-xl text-blue1">Add Product</h3>
+              <h3 className="font-bold text-xl text-blue1">Edit Product</h3>
               <form method="dialog">
                 <button className="btn btn-sm btn-circle btn-ghost">✕</button>
               </form>
             </div>
-            <form action="" onSubmit={handleOnSubmit}>
+            <form action="" onSubmit={handleOnSubmitEdit}>
               <div className="flex flex-col gap-4">
                 <input
                   type="text"
@@ -53,10 +51,10 @@ export const AddProductBtn = ({
                   className="border-[1.5px] w-full outline-none p-2 focus:border-[1.5px] focus:border-green"
                 />
                 <button
-                  onClick={() => document.getElementById("my_modal_3").close()}
+                  onClick={() => document.getElementById("my_modal_1").close()}
                   className="btn w-full bg-blue1 hover:bg-green text-white text-lg not-italic font-bolt font-roboto"
                 >
-                  ADD
+                  EDIT
                 </button>
               </div>
             </form>

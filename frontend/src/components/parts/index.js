@@ -4,3 +4,7 @@ export * from "./MainZone";
 export * from "./Cards";
 export * from "./Footer";
 export * from "./AddProductBtn";
+export * from "./AdminCard";
+export * from "./AdminBtnEdit";
+export * from "./AdminBtnDelete";
+export * from "./Loader";

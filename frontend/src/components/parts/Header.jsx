@@ -12,7 +12,7 @@ export const Header = () => {
             <div className="flex justify-between items-center">
               <div className="font-bold font-roboto text-2xl text-white not-italic">
                 <Link href="/">
-                  GERELT<span className="text-green">.mn</span>
+                  GERELT<span className="text-green">.store</span>
                 </Link>
               </div>
               <div className="min-w-[200px]">

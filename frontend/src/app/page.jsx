@@ -2,7 +2,7 @@ import HomePage from "@/components/pages/HomePage";
 
 export default function Home() {
   return (
-    <main className="bg-blue h-screen">
+    <main className="h-screen">
       <HomePage />
     </main>
   );
