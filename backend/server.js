@@ -21,8 +21,6 @@ server.get("/singleProduct", async (_, response) => {
   try {
     const { id } = _.query;
 
-    console.log("get id irseer bna", id);
-
     const sqpResponse = await sql`SELECT * FROM products WHERE id = ${id}`;
 
     response.json(sqpResponse);
@@ -37,6 +35,14 @@ server.get("/singleProduct", async (_, response) => {
 
 server.get("/", async (_, response) => {
   const sqpResponse = await sql`SELECT * FROM products`;
+  response.json(sqpResponse);
+});
+
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+
+server.get("/user", async (_, response) => {
+  const sqpResponse = await sql`SELECT * FROM customers`;
   response.json(sqpResponse);
 });
 
@@ -67,6 +73,28 @@ server.post("/products", async (request, response) => {
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 
+server.post("/order_items", async (request, response) => {
+  try {
+    const { order_id, product_id, price, quantity } = request.body;
+
+    const res = await sql`
+    INSERT INTO order_items ( order_id, product_id, price, quantity) 
+    VALUES (${order_id}, ${product_id}, ${price}, ${quantity})
+    `;
+
+    response.json({
+      message: `'${order_id}' амжилттай нэмэгдлээ`,
+      res,
+    });
+  } catch (error) {
+    console.error("error inserting products:", error);
+    request.status(500).json({ error: "Бүтээгдэхүүн нэмэхэд алдаа гарлаа" });
+  }
+});
+
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+
 server.delete("/products", async (request, response) => {
   try {
     const { productId } = request.body;
@@ -74,8 +102,6 @@ server.delete("/products", async (request, response) => {
     if (isNaN(productId)) {
       return request.status(400), json({ error: "Invalid ID parameter" });
     }
-
-    console.log("id bol ene shuu", productId);
 
     const res = await sql`
     DELETE FROM products WHERE id = ${productId} 
