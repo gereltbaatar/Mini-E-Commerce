@@ -6,3 +6,8 @@ export * from "./ShoppingCartIcon1";
 export * from "./AddIcon";
 export * from "./EditIcon";
 export * from "./DeleteIcon";
+export * from "./DeleteIconBlack";
+export * from "./UserCardIcon";
+export * from "./OrdersIcon";
+export * from "./AddressIcon";
+export * from "./LogOutIcon";

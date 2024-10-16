@@ -5,10 +5,10 @@ import { AddProductBtn, AdminCard, Loader } from "../parts";
 
 const AdminPage = () => {
   const [dataProduct, setDataProduct] = useState([]);
-  const [loading, setLoading] = useState(0);
+  const [loading, setLoading] = useState(true);
 
   const BACKEND_ENDPOINT = process.env.BACKEND_URL;
-  console.log("Url adminPage", BACKEND_ENDPOINT);
+
 
   const handleOnSubmit = async (event) => {
     event.preventDefault();
@@ -45,18 +45,18 @@ const AdminPage = () => {
 
       const data = await response.json();
       setDataProduct(data);
-      setLoading(1);
+      setLoading(false);
     } catch (error) {
       console.error("Error fetching data:", error);
-      setLoading(1);
+      setLoading(false);
     }
   }
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [dataProduct]);
 
-  if (loading === 0) {
+  if (loading === true) {
     return (
       <main className="pt-36 pb-20 bg-white">
         <div className="container m-auto">

@@ -2,21 +2,34 @@
 
 import { useState, useEffect } from "react";
 import { Cards, Loader } from "../parts";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { AddIcon } from "../svg";
-// import { useRouter } from "next/router";
 
 const SingleProductPage = ({ params }) => {
-  const router = useRouter();
   const BACKEND_ENDPOINT = process.env.BACKEND_URL;
-
   const [dataProduct, setDataProduct] = useState([]);
-  const [loading, setLoading] = useState(0);
+  const [loading, setLoading] = useState(true);
+
+  const handleOnSubmit = async (id, price, event) => {
+    console.log("items id , price ene shuu", id, price, event.target.value);
+
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ product_id: id, price: price, quantity: 2 }),
+    };
+    try {
+      const response = await fetch(`${BACKEND_ENDPOINT}/order_items`, options);
+      const data = await response.json();
+    } catch (error) {
+      console.log("erororo", error);
+    }
+  };
 
   async function fetchData() {
     try {
-      console.log("id: ", params.id);
       const response = await fetch(
         `${BACKEND_ENDPOINT}/singleProduct?id=${params.id}`
       );
@@ -26,12 +39,10 @@ const SingleProductPage = ({ params }) => {
 
       const data = await response.json();
       setDataProduct(data);
-      setLoading(1);
-
-      console.log("data end bna aa", data);
+      setLoading(false);
     } catch (error) {
       console.error("Error fetching data:", error);
-      setLoading(1); // Алдаа гарвал ачааллыг зогсоох
+      setLoading(false); // Алдаа гарвал ачааллыг зогсоох
     }
   }
 
@@ -39,7 +50,7 @@ const SingleProductPage = ({ params }) => {
     fetchData();
   }, []);
 
-  if (loading === 0) {
+  if (loading === true) {
     return (
       <main className="pt-36 pb-20 bg-white">
         <div className="container m-auto">
@@ -73,34 +84,41 @@ const SingleProductPage = ({ params }) => {
                         alt=""
                       />
                     </div>
-                    <div className="flex flex-col gap-5 px-14">
-                      <div className="">
-                        <span className="text-blue1 font-roboto font-bold text-xl">
-                          {items.description}
-                        </span>
-                      </div>
-                      <div className="border w-full"></div>
-                      <div className="">
-                        <span className="text-blue1 font-roboto font-semibold text-2xl">
-                          {items.price}₮
-                        </span>
-                      </div>
-                      <div className="border w-full"></div>
-                      <div className="flex flex-col gap-2 ">
-                        <div className="text-textColor text-base not-italic font-roboto font-medium">
-                          Product Quantity
+                    <form
+                      action=""
+                      onClick={(event) => {
+                        handleOnSubmit(items.id, items.price, event);
+                      }}
+                    >
+                      <div className="flex flex-col gap-5 px-14">
+                        <div className="">
+                          <span className="text-blue1 font-roboto font-bold text-xl">
+                            {items.description}
+                          </span>
                         </div>
-                        <select className="border px-4 py-2 rounded-3xl w-20 outline-none  focus:border focus:border-green font-medium font-roboto not-italic text-base">
-                          <option value="1">1</option>
-                          <option value="2">2</option>
-                          <option value="3">3</option>
-                          <option value="4">4</option>
-                        </select>
+                        <div className="border w-full"></div>
+                        <div className="">
+                          <span className="text-blue1 font-roboto font-semibold text-2xl">
+                            {items.price}₮
+                          </span>
+                        </div>
+                        <div className="border w-full"></div>
+                        <div className="flex flex-col gap-2 ">
+                          <div className="text-textColor text-base not-italic font-roboto font-medium">
+                            Тоо ширхэг
+                          </div>
+                          <select className="border px-4 py-2 rounded-3xl w-20 outline-none  focus:border focus:border-green font-medium font-roboto not-italic text-base">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                          </select>
+                        </div>
+                        <button className="flex items-center justify-center border px-4 py-2 rounded-3xl bg-blue1 hover:bg-green duration-300 text-white text-lg not-italic font-roboto font-semibold">
+                          Сагсанд нэмэх
+                        </button>
                       </div>
-                      <button className="flex items-center justify-center border px-4 py-2 rounded-3xl bg-blue1 hover:bg-green duration-300 text-white text-2xl not-italic font-roboto font-semibold">
-                        Add to cart
-                      </button>
-                    </div>
+                    </form>
                   </div>
                 </div>
               </Link>
