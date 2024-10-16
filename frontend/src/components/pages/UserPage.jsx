@@ -21,7 +21,6 @@ const UserPage = () => {
       const data = await response.json(); // JSON-ийг парс хийх
       setDataUser(data);
       setLoading(false);
-      setCart(false);
     } catch (error) {
       console.error("Error fetching data:", error); // Алдааг консольд хэвлэх
       setLoading(false);
@@ -32,7 +31,7 @@ const UserPage = () => {
     fetchData(); // Функцийг дуудна
   }, []);
 
-  if (loading === false) {
+  if (loading === true) {
     return (
       <main className="pt-36 pb-20 bg-white">
         <div className="container m-auto">

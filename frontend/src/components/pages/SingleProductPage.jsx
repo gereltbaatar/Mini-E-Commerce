@@ -18,7 +18,7 @@ const SingleProductPage = ({ params }) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ product_id: id, price: price, quantity: 2 }),
+      body: JSON.stringify({ product_id: id, price: price, quantity: 4 }),
     };
     try {
       const response = await fetch(`${BACKEND_ENDPOINT}/order_items`, options);

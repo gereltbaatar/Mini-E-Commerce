@@ -9,8 +9,6 @@ export const MainZone = () => {
   const [dataProduct, setDataProduct] = useState([]);
   const [loading, setLoading] = useState(0);
 
-  console.log("Url mainPage", BACKEND_ENDPOINT);
-
   async function fetchData() {
     try {
       const response = await fetch(BACKEND_ENDPOINT);
@@ -28,8 +26,6 @@ export const MainZone = () => {
       setLoading(1);
     }
   }
-
-  console.log("Авах өгөгдлийг консоль", dataProduct); // Авах өгөгдлийг консольд хэвлэх
 
   useEffect(() => {
     fetchData(); // Функцийг дуудна

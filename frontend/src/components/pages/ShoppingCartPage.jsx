@@ -11,9 +11,14 @@ const ShoppingCartPage = () => {
   const [loading, setLoading] = useState(true);
   const [cart, setCart] = useState(true);
 
+  const productCount = dataProduct.length;
+
+  ///////////////////////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////////////////////
+
   async function fetchData() {
     try {
-      const response = await fetch(BACKEND_ENDPOINT);
+      const response = await fetch(`${BACKEND_ENDPOINT}/order_items`);
 
       // Хариу сайн ирсэн эсэхийг шалгах
       if (!response.ok) {
@@ -30,11 +35,34 @@ const ShoppingCartPage = () => {
     }
   }
 
-  console.log("Авах өгөгдлийг консоль CART", dataProduct); // Авах өгөгдлийг консольд хэвлэх
-
   useEffect(() => {
     fetchData(); // Функцийг дуудна
-  }, []);
+  }, [dataProduct]);
+
+  ///////////////////////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////////////////////
+
+  const handleOnSubmitDelete = async (id) => {
+    event.preventDefault();
+
+    const options = {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id: id }),
+    };
+
+    try {
+      const response = await fetch(`${BACKEND_ENDPOINT}/order_items`, options);
+      const data = await response.json();
+    } catch (error) {
+      console.log("error bol :  ", error);
+    }
+  };
+
+  ///////////////////////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////////////////////
 
   if (loading === true) {
     return (
@@ -85,46 +113,60 @@ const ShoppingCartPage = () => {
           <div className="flex gap-4">
             <div className="w-[65%] bg-blue1/5 rounded-lg">
               <div className="font-bold font-roboto not-italic text-2xl text-blue1 p-4">
-                Таны сагс <span className="text-green">4</span> бараа
+                Таны сагс <span className="text-green">{productCount}</span>{" "}
+                бараа
               </div>
               <div className="grid grid-cols-1 gap-3 p-4">
                 {dataProduct.map((items, itemIndex) => {
                   return (
-                    <Link href={`/product/${items.id}`} key={itemIndex}>
-                      <div className="px-3 pt-3">
+                    <div key={itemIndex} className="px-3 pt-3">
+                      <Link href={`/product/${items.product_id}`}>
                         <div className="flex gap-3">
                           <div className="border">
                             <img
                               className="h-[100px]"
                               src={items.image_url}
+                              // src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
                               alt=""
                             />
                           </div>
                           <div className="flex items-center justify-between w-full gap-2">
-                            <div className="text-xs not-italic font-bold font-roboto text-[#4b4c4f]">
-                              {items.description}
+                            <div className="flex flex-col gap-3">
+                              <div className="text-xs border not-italic font-bold font-roboto text-[#4b4c4f]">
+                                {items.name}
+                                {/* description */}
+                              </div>
+                              <div className="text-xs border not-italic font-bold font-roboto text-[#4b4c4f]">
+                                {items.description}
+                                {/* description */}
+                              </div>
                             </div>
                             <div className="flex gap-4 items-center">
                               <div className="text-sm not-italic font-bold font-roboto text-blue1">
                                 {items.price}₮
                               </div>
                               <div className="border border-green px-4 py-2 rounded-xl text-sm not-italic font-bold font-roboto text-blue1">
-                                3
+                                {items.quantity}
                               </div>
                             </div>
                           </div>
                         </div>
-                        <div className="flex justify-end pb-3">
-                          <button className="group  flex gap-1 items-center px-4 py-2 rounded-3xl hover:bg-green/20 duration-300">
-                            <DeleteIconBlack />
-                            <p className="flex items-center justify-center font-roboto font-bold not-italic text-xs text-[#4b4c4f] group-hover:text-blue1">
-                              устгах
-                            </p>
-                          </button>
-                        </div>
-                        <div className="w-full border-[0.5px]"></div>
+                      </Link>
+                      <div className="flex justify-end pb-3">
+                        <button
+                          onClick={() => {
+                            handleOnSubmitDelete(items?.id);
+                          }}
+                          className="group  flex gap-1 items-center px-4 py-2 rounded-3xl hover:bg-green/20 duration-300"
+                        >
+                          <DeleteIconBlack />
+                          <p className="flex items-center justify-center font-roboto font-bold not-italic text-xs text-[#4b4c4f] group-hover:text-blue1">
+                            устгах
+                          </p>
+                        </button>
                       </div>
-                    </Link>
+                      <div className="w-full border-[0.5px]"></div>
+                    </div>
                   );
                 })}
               </div>

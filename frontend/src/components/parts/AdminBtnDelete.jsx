@@ -1,7 +1,6 @@
 import { DeleteIcon } from "../svg";
 
 export const AdminBtnDelete = ({ handleOnSubmitDelete, items }) => {
-  console.log("AdminBtnDelete", items.id);
   return (
     <div className="">
       <button
