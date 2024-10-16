@@ -49,6 +49,15 @@ server.get("/user", async (_, response) => {
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 
+server.get("/order_items", async (_, response) => {
+  const sqpResponse =
+    await sql`SELECT * FROM products JOIN order_items ON (order_items.product_id = products.id)`;
+  response.json(sqpResponse);
+});
+
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+
 // response.send("post huselt irsen")
 
 server.post("/products", async (request, response) => {
@@ -104,11 +113,41 @@ server.delete("/products", async (request, response) => {
     }
 
     const res = await sql`
-    DELETE FROM products WHERE id = ${productId} 
-    `;
+    DELETE FROM order_items WHERE product_id = ${productId};
+`;
+
+    await sql`
+    DELETE FROM products WHERE id = ${productId};
+`;
 
     response.json({
       message: `'${productId}' ID-тай бараа амжилттай Устгагдлаа`,
+      res,
+    });
+  } catch (error) {
+    console.error("error inserting products:", error);
+    request.status(500).json({ error: "Бүтээгдэхүүн Устгахад алдаа гарлаа" });
+  }
+});
+
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+
+server.delete("/order_items", async (request, response) => {
+  try {
+    const { id } = request.body;
+    console.log("id ireh", id);
+
+    if (isNaN(id)) {
+      return request.status(400), json({ error: "Invalid ID parameter" });
+    }
+
+    const res = await sql`
+    DELETE FROM order_items WHERE id = ${id} 
+    `;
+
+    response.json({
+      message: `'${id}' ID-тай бараа амжилттай Устгагдлаа`,
       res,
     });
   } catch (error) {
