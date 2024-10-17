@@ -58,8 +58,6 @@ server.get("/order_items", async (_, response) => {
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 
-// response.send("post huselt irsen")
-
 server.post("/products", async (request, response) => {
   try {
     const { name, description, price, image_url } = request.body;
