@@ -1,24 +1,31 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Cards, Loader } from "../parts";
+import { Loader } from "../parts";
 import Link from "next/link";
-import { AddIcon } from "../svg";
 
 const SingleProductPage = ({ params }) => {
+  ///////////////////////////////////////////////////////////////////////////////
+
   const BACKEND_ENDPOINT = process.env.BACKEND_URL;
   const [dataProduct, setDataProduct] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const handleOnSubmit = async (id, price, event) => {
-    console.log("items id , price ene shuu", id, price, event.target.value);
+  ///////////////////////////////////////////////////////////////////////////////
+
+  const handleOnSubmit = async (id, price) => {
+    console.log("baraa nemeh");
 
     const options = {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ product_id: id, price: price, quantity: 4 }),
+      body: JSON.stringify({
+        product_id: id,
+        price: price,
+        quantity: 1,
+      }),
     };
     try {
       const response = await fetch(`${BACKEND_ENDPOINT}/order_items`, options);
@@ -27,6 +34,7 @@ const SingleProductPage = ({ params }) => {
       console.log("erororo", error);
     }
   };
+  ///////////////////////////////////////////////////////////////////////////////
 
   async function fetchData() {
     try {
@@ -49,6 +57,8 @@ const SingleProductPage = ({ params }) => {
   useEffect(() => {
     fetchData();
   }, []);
+
+  ///////////////////////////////////////////////////////////////////////////////
 
   if (loading === true) {
     return (
@@ -86,8 +96,8 @@ const SingleProductPage = ({ params }) => {
                     </div>
                     <form
                       action=""
-                      onClick={(event) => {
-                        handleOnSubmit(items.id, items.price, event);
+                      onClick={() => {
+                        handleOnSubmit(items.id, items.price);
                       }}
                     >
                       <div className="flex flex-col gap-5 px-14">
@@ -107,12 +117,10 @@ const SingleProductPage = ({ params }) => {
                           <div className="text-textColor text-base not-italic font-roboto font-medium">
                             Тоо ширхэг
                           </div>
-                          <select className="border px-4 py-2 rounded-3xl w-20 outline-none  focus:border focus:border-green font-medium font-roboto not-italic text-base">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                          </select>
+                          <input
+                            type="number"
+                            className="border px-4 py-2 rounded-3xl w-20 outline-none  focus:border focus:border-green font-medium font-roboto not-italic text-base"
+                          ></input>
                         </div>
                         <button className="flex items-center justify-center border px-4 py-2 rounded-3xl bg-blue1 hover:bg-green duration-300 text-white text-lg not-italic font-roboto font-semibold">
                           Сагсанд нэмэх

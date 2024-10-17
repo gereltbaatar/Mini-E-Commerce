@@ -12,7 +12,14 @@ const ShoppingCartPage = () => {
   const [cart, setCart] = useState(true);
 
   const productCount = dataProduct.length;
+  // const productPrice = dataProduct[2]?.price;
+  let productPrice = 0;
 
+  dataProduct.forEach((product) => {
+    productPrice += product.price;
+  });
+
+  const allPrice = 5000 + 10000 + productPrice;
   ///////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////////////////////////////////////////////////
 
@@ -132,11 +139,13 @@ const ShoppingCartPage = () => {
                           </div>
                           <div className="flex items-center justify-between w-full gap-2">
                             <div className="flex flex-col gap-3">
-                              <div className="text-xs border not-italic font-bold font-roboto text-[#4b4c4f]">
+                              <div className="text-xs  not-italic font-bold font-roboto text-[#4b4c4f]">
+                                <span className="text-green">Нэр - </span>{" "}
                                 {items.name}
                                 {/* description */}
                               </div>
-                              <div className="text-xs border not-italic font-bold font-roboto text-[#4b4c4f]">
+                              <div className="text-xs  not-italic font-bold font-roboto text-[#4b4c4f]">
+                                <span className="text-green ">Тайлбар -</span>{" "}
                                 {items.description}
                                 {/* description */}
                               </div>
@@ -178,7 +187,7 @@ const ShoppingCartPage = () => {
                     Үнийн дүн
                   </p>
                   <p className="font-roboto font-bold not-italic text-base text-blue1">
-                    170,938₮
+                    {productPrice}₮
                   </p>
                 </div>
                 <div className="flex justify-between py-2">
@@ -203,7 +212,7 @@ const ShoppingCartPage = () => {
                     Нийт төлөх дүн
                   </p>
                   <p className="font-roboto font-bold not-italic text-lg text-green">
-                    180,938₮
+                    {allPrice}₮
                   </p>
                 </div>
                 <button className="my-4 w-full flex items-center justify-center border px-4 py-2 rounded-3xl bg-blue1 hover:bg-green duration-300 text-white text-lg not-italic font-roboto font-semibold">

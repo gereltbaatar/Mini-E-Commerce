@@ -7,10 +7,10 @@ export const UserCardIcon = () => {
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      class="lucide lucide-id-card"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className="lucide lucide-id-card"
     >
       <path d="M16 10h2" />
       <path d="M16 14h2" />
