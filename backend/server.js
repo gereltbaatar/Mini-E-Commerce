@@ -134,7 +134,6 @@ server.delete("/products", async (request, response) => {
 server.delete("/order_items", async (request, response) => {
   try {
     const { id } = request.body;
-    console.log("id ireh", id);
 
     if (isNaN(id)) {
       return request.status(400), json({ error: "Invalid ID parameter" });
