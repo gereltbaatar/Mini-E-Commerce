@@ -59,11 +59,11 @@ export const AdminCard = ({ items }) => {
 
   return (
     <div className="">
-      <div className="card card-compact bg-base-100 max-w-72 shadow-xl">
+      <div className="card card-compact bg-base-100 w-72 shadow-xl">
         <figure className="">
           {/* <img src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp" /> */}
           <img
-            className="skeleton w-[290px] h-[170px]"
+            className="skeleton max-w-[290px] h-[170px]"
             src={`${items?.image_url}`}
             alt={`${items?.name}`}
           />

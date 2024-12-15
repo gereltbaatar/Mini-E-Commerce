@@ -5,7 +5,7 @@ export const Cards = ({ items }) => {
         <figure className="skeleton w-[290px] h-[170px]">
           <img src={`${items?.image_url}`} alt={`${items?.name}`} />
         </figure>
-        <div className="card-body w-[300px]">
+        <div className="card-body max-w-[300px]">
           <h2 className="card-title">{items?.name}</h2>
           <div className="card-actions justify-start">
             <p className="font-roboto font-extrabold not-italic text-lg">
