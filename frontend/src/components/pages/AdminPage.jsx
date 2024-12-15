@@ -9,7 +9,6 @@ const AdminPage = () => {
 
   const BACKEND_ENDPOINT = process.env.BACKEND_URL;
 
-
   const handleOnSubmit = async (event) => {
     event.preventDefault();
 
@@ -34,6 +33,8 @@ const AdminPage = () => {
       console.log("erororo", error);
     }
   };
+
+  console.log(BACKEND_ENDPOINT);
 
   async function fetchData() {
     try {

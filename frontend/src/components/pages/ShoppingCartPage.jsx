@@ -7,6 +7,7 @@ import { Loader } from "../parts";
 
 const ShoppingCartPage = () => {
   const BACKEND_ENDPOINT = process.env.BACKEND_URL;
+
   const [dataProduct, setDataProduct] = useState([]);
   const [loading, setLoading] = useState(true);
   const [cart, setCart] = useState(true);
@@ -14,6 +15,8 @@ const ShoppingCartPage = () => {
   const productCount = dataProduct.length;
   // const productPrice = dataProduct[2]?.price;
   let productPrice = 0;
+
+  console.log("url shuuu", process.env.BACKEND_URL);
 
   dataProduct.forEach((product) => {
     productPrice += product.price;
@@ -145,7 +148,7 @@ const ShoppingCartPage = () => {
                                 {/* description */}
                               </div>
                               <div className="text-xs  not-italic font-bold font-roboto text-[#4b4c4f]">
-                                <span className="text-green ">Тайлбар -</span>{" "}
+                                <span className="text-green ">Тайлбар - </span>{" "}
                                 {items.description}
                                 {/* description */}
                               </div>

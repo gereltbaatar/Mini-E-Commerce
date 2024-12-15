@@ -84,6 +84,10 @@ server.post("/order_items", async (request, response) => {
   try {
     const { order_id, product_id, price, quantity } = request.body;
 
+    if (!product_id || !price || !quantity) {
+      return response.status(400).json({ error: "Бүх талбарыг бөглөнө үү!" });
+    }
+
     const res = await sql`
     INSERT INTO order_items ( order_id, product_id, price, quantity) 
     VALUES (${order_id}, ${product_id}, ${price}, ${quantity})

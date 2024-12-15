@@ -12,10 +12,7 @@ const SingleProductPage = ({ params }) => {
   const [loading, setLoading] = useState(true);
 
   ///////////////////////////////////////////////////////////////////////////////
-
   const handleOnSubmit = async (id, price) => {
-    console.log("baraa nemeh");
-
     const options = {
       method: "POST",
       headers: {
@@ -27,13 +24,21 @@ const SingleProductPage = ({ params }) => {
         quantity: 1,
       }),
     };
+
     try {
       const response = await fetch(`${BACKEND_ENDPOINT}/order_items`, options);
+
+      if (!response.ok) {
+        throw new Error(`Серверийн алдаа: ${response.status}`);
+      }
+
       const data = await response.json();
+      console.log("Амжилттай нэмэгдлээ:", data);
     } catch (error) {
-      console.log("erororo", error);
+      console.error("Алдаа гарлаа:", error.message || error);
     }
   };
+
   ///////////////////////////////////////////////////////////////////////////////
 
   async function fetchData() {
@@ -120,7 +125,7 @@ const SingleProductPage = ({ params }) => {
                           <input
                             type="number"
                             className="border px-4 py-2 rounded-3xl w-20 outline-none  focus:border focus:border-green font-medium font-roboto not-italic text-base"
-                          ></input>
+                          />
                         </div>
                         <button className="flex items-center justify-center border px-4 py-2 rounded-3xl bg-blue1 hover:bg-green duration-300 text-white text-lg not-italic font-roboto font-semibold">
                           Сагсанд нэмэх
